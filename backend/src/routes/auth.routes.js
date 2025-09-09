@@ -1,9 +1,19 @@
-import express from 'express';
-import { registerUser,loginUser, logoutUser } from '../controllers/auth.controller.js';
+import express from "express";
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  registerFoodPartner,
+  loginFoodPartner,
+  logoutFoodPartner,
+} from "../controllers/auth.controller.js";
 
 export const router = express();
 
-router.post("/users/register", registerUser);
-router.post("/users/login", loginUser);
-router.get("/users/logout", logoutUser);
+router.post("/user/register", registerUser);
+router.post("/user/login", loginUser);
+router.get("/user/logout", logoutUser);
 
+router.post("/food-partner/register", registerFoodPartner);
+router.post("/food-partner/login", loginFoodPartner);
+router.get("/food-partner/logout", logoutFoodPartner);
