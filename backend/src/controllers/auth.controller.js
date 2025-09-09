@@ -31,7 +31,7 @@ export const registerUser = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
+    
     res.status(500).json({ message: "Register Server error", error});
   }
 };
@@ -73,7 +73,17 @@ export const loginUser = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(err);
+   
     res.status(500).json({ message: "login Server error", error });
   }
 };
+
+export const logoutUser = (req,res) => {
+  try {
+    res.clearCookie("token").status(200).json({
+      message:"User logged out successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:"logout server error : ", error});
+  }
+}
