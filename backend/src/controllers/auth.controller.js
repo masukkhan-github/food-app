@@ -153,10 +153,7 @@ export const loginFoodPartner = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const isPasswordValid = await bcrypt.compare(
-      password,
-      partner.password
-    );
+    const isPasswordValid = await bcrypt.compare(password, partner.password);
 
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid email or password" });
@@ -183,7 +180,12 @@ export const loginFoodPartner = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: "Food-partner login server error", error: error.message});
+    res
+      .status(500)
+      .json({
+        message: "Food-partner login server error",
+        error: error.message,
+      });
   }
 };
 
