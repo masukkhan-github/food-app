@@ -13,6 +13,9 @@ const foodPartnerSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+},
+{
+  timestamps:true
 });
 
 export const FoodPartner = mongoose.model("FoodPartner", foodPartnerSchema);
