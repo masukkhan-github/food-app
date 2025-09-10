@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const foodPartnerSchema = new mongoose.Schema({
   fullName: {
     type: String,
-    require: true,
+    required: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   password: {
