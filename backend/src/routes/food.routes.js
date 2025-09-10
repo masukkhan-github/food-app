@@ -9,4 +9,4 @@ const upload = multer({
 
 export const foodRouter = express.Router()
 
-foodRouter.post("/list-food", authFoodPartner, upload.single("video"), listFood)
+foodRouter.post("/", authFoodPartner, upload.single("video"), listFood)
