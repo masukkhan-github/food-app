@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import {foodRouter}  from './routes/auth.routes.js';
+import {authRouter}  from './routes/auth.routes.js';
+import { foodRouter } from './routes/food.routes.js';
 import dotenv from 'dotenv'
 
 const app = express();
@@ -15,7 +16,8 @@ app.get("/",(req,res)=>{
   res.send("hello get root");
 });
 
-app.use("/api/v1/auth", foodRouter)
+app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/food", foodRouter)
 
 
 

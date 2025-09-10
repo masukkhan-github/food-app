@@ -23,6 +23,18 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    res.cookie("token", token);
+
     res.status(201).json({
       message: "user created successfully",
       user: {
@@ -46,7 +58,7 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const isPasswordValid =await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid email or password" });
@@ -104,6 +116,18 @@ export const registerFoodPartner = async (req, res) => {
       password: hashedPassword,
     });
 
+    const token = jwt.sign(
+      {
+        id: foodPartner._id,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    res.cookie("token", token);
+
     res.status(201).json({
       message: "Food-partner created successfully",
       foodPartner: {
@@ -123,13 +147,16 @@ export const loginFoodPartner = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const partnerExists = await FoodPartner.findOne({ email });
+    const partner = await FoodPartner.findOne({ email });
 
-    if (!partnerExists) {
+    if (!partner) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, partnerExists.password);
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      partner.password
+    );
 
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid email or password" });
@@ -137,7 +164,7 @@ export const loginFoodPartner = async (req, res) => {
 
     const token = jwt.sign(
       {
-        id: partnerExists._id,
+        id: partner._id,
       },
       process.env.JWT_SECRET,
       {
@@ -150,13 +177,13 @@ export const loginFoodPartner = async (req, res) => {
     res.status(200).json({
       message: "Food-Partner logged in successfully",
       foodPartner: {
-        id: partnerExists._id,
-        name: partnerExists.fullName,
-        email: partnerExists.email,
+        id: partner._id,
+        name: partner.fullName,
+        email: partner.email,
       },
     });
   } catch (error) {
-    res.status(500).json({ message: "Food-partner login server error", error });
+    res.status(500).json({ message: "Food-partner login server error", error: error.message});
   }
 };
 

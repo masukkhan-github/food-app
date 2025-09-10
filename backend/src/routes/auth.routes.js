@@ -8,12 +8,12 @@ import {
   logoutFoodPartner,
 } from "../controllers/auth.controller.js";
 
-export const foodRouter = express.Router();
+export const authRouter = express.Router();
 
-foodRouter.post("/user/register", registerUser);
-foodRouter.post("/user/login", loginUser);
-foodRouter.get("/user/logout", logoutUser);
+authRouter.post("/user/register", registerUser);
+authRouter.post("/user/login", loginUser);
+authRouter.get("/user/logout", logoutUser);
 
-foodRouter.post("/food-partner/register", registerFoodPartner);
-foodRouter.post("/food-partner/login", loginFoodPartner);
-foodRouter.get("/food-partner/logout", logoutFoodPartner);
+authRouter.post("/food-partner/register", registerFoodPartner);
+authRouter.post("/food-partner/login", loginFoodPartner);
+authRouter.get("/food-partner/logout", logoutFoodPartner);
