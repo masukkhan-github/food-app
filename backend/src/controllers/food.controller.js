@@ -3,11 +3,20 @@ import { uploadFile } from "../services/storage.service.js";
 import { v4 as uuid } from "uuid";
 
 export const listFood = async (req, res) => {
-  console.log(req.foodPartner);
-  console.log(req.file);
+  try {
+    const { name, description } = req.body;
+    const fileUploadResult = await uploadFile(req.file.buffer, uuid());
 
-  const fileUploadResult = await uploadFile(req.file.buffer, uuid());
-  console.log(fileUploadResult);
+    const foodItem = await Food.create({
+      name: name,
+      video: fileUploadResult.url,
+      description: description,
+      foodPartner: req.foodPartner._id,
+    });
 
-  res.json({ message: "uploaded" });
+    res.status(201).json({ message: "Food item created", foodItem: foodItem });
+  } catch (error) {
+    console.error("Error creating food item:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 };
