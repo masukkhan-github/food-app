@@ -111,7 +111,7 @@ export const registerFoodPartner = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 11);
 
     const foodPartner = await FoodPartner.create({
-      fullName:name,
+      name:name,
       email,
       password: hashedPassword,
     });
