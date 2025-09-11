@@ -5,7 +5,7 @@ import { FoodPartner } from "../models/foodPartner.model.js";
 
 export const registerUser = async (req, res) => {
   try {
-    const { fullName, email, password } = req.body;
+    const { name, email, password } = req.body;
 
     const userExists = await User.findOne({ email });
 
@@ -18,7 +18,7 @@ export const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 11);
 
     const user = await User.create({
-      fullName,
+      name:name,
       email,
       password: hashedPassword,
     });
@@ -39,7 +39,7 @@ export const registerUser = async (req, res) => {
       message: "user created successfully",
       user: {
         id: user._id,
-        name: user.fullName,
+        name: user.name,
         email: user.email,
       },
     });
@@ -80,7 +80,7 @@ export const loginUser = async (req, res) => {
       message: "User logged in successfully",
       user: {
         id: user._id,
-        name: user.fullName,
+        name: user.name,
         email: user.email,
       },
     });
