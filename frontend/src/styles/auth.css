@@ -1,0 +1,108 @@
+@import './vars.css';
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  background-color: rgba(var(--bg),1);
+  color: rgba(var(--text),1);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:32px;
+}
+
+.auth-shell{
+  max-width:920px;
+  margin:40px auto;
+  display:grid;
+  grid-template-columns:1fr 420px;
+  gap:32px;
+  align-items:center;
+}
+
+.auth-hero{
+  padding:28px;
+}
+.brand{
+  font-weight:700;
+  font-size:20px;
+  color: rgba(var(--primary),1);
+}
+.auth-hero, .card{opacity:0;transform:translateY(8px);}
+.auth-hero{
+  animation: fadeUp 420ms cubic-bezier(.2,.9,.2,1) 0s both;
+}
+.card{
+  animation: fadeUp 520ms cubic-bezier(.2,.9,.2,1) 80ms both;
+}
+.btn{transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.08)}
+.btn:active{transform:translateY(0)}
+
+.form-row input{transition: box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease}
+.form-row input:focus{
+  outline:none;
+  border-color: rgba(var(--primary),0.9);
+  box-shadow: 0 6px 18px rgba(var(--primary),0.12);
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes popIn{
+  from{opacity:0;transform:scale(.98)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* small subtle pop for primary button on load */
+.btn-primary{animation: popIn 320ms ease 220ms both}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .auth-hero,.card,.btn,.form-row input,.brand,.helper a{animation:none !important;transition:none !important;}
+}
+
+/* Hover / interactive states */
+.card{transition:transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms cubic-bezier(.2,.9,.2,1)}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.12)}
+
+.brand{display:inline-block;transition:transform 180ms ease, opacity 160ms ease}
+.brand:hover{transform:scale(1.03);opacity:0.98}
+
+.btn-ghost:hover{background:rgba(var(--muted),0.08);border-color:rgba(var(--muted),0.18)}
+
+.helper a{
+  color:inherit;text-decoration:none;position:relative;transition:color 160ms ease;
+}
+.helper a::after{
+  content:'';position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:linear-gradient(90deg, rgba(var(--primary),1), rgba(var(--primary),0.6));transform:scaleX(0);transform-origin:left center;transition:transform 200ms ease}
+.helper a:hover::after{transform:scaleX(1)}
+
+.h-title{font-size:28px;margin-top:12px;margin-bottom:8px}
+.h-sub{color:rgba(var(--muted),1)}
+
+.card{
+  background-color: rgba(var(--card),1);
+  padding:28px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.form-title{font-weight:600;margin-bottom:12px}
+.form-row{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+label{font-size:13px;color:rgba(var(--muted),1)}
+input[type="text"],input[type="email"],input[type="password"]{
+  padding:10px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent;color:inherit
+}
+.actions{display:flex;gap:8px;align-items:center;margin-top:8px}
+.btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
+.btn-primary{background:linear-gradient(90deg, rgba(var(--primary),1), rgba(var(--primary),0.85));color:white}
+.btn-ghost{background:transparent;border:1px solid rgba(var(--muted),0.14);color:inherit}
+
+.helper{font-size:13px;color:rgba(var(--muted),1);margin-top:8px}
+
+@media (max-width:900px){
+  .auth-shell{grid-template-columns:1fr; padding:0 8px}
+}
