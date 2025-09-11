@@ -101,7 +101,7 @@ export const logoutUser = (req, res) => {
 
 export const registerFoodPartner = async (req, res) => {
   try {
-    const { fullName, email, password } = req.body;
+    const { name, email, password } = req.body;
     const partnerExists = await FoodPartner.findOne({ email });
 
     if (partnerExists) {
@@ -111,7 +111,7 @@ export const registerFoodPartner = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 11);
 
     const foodPartner = await FoodPartner.create({
-      fullName,
+      fullName:name,
       email,
       password: hashedPassword,
     });
@@ -132,7 +132,7 @@ export const registerFoodPartner = async (req, res) => {
       message: "Food-partner created successfully",
       foodPartner: {
         id: foodPartner._id,
-        name: foodPartner.fullName,
+        name: foodPartner.name,
         email: foodPartner.email,
       },
     });
@@ -175,7 +175,7 @@ export const loginFoodPartner = async (req, res) => {
       message: "Food-Partner logged in successfully",
       foodPartner: {
         id: partner._id,
-        name: partner.fullName,
+        name: partner.name,
         email: partner.email,
       },
     });
