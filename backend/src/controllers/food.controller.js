@@ -20,3 +20,16 @@ export const listFood = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+export const getFood = async (req,res) =>{
+  try {
+    const foodItem = await Food.find({});
+    res.status(200).json({
+      message:"Food item fetched successfully",
+      foodItem: foodItem
+    })
+  } catch (error) {
+    console.error("Error getting food item:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+}

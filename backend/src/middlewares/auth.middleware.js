@@ -1,11 +1,11 @@
 import { FoodPartner } from "../models/foodPartner.model.js";
+import { User} from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 
 export const authFoodPartner = async (req, res, next) => {
   try {
     // 1. Check for token
-    const token =
-      req.cookies?.token || req.header("Authorization")?.replace("Bearer ", "");
+    const token = req.cookies.token;
 
     if (!token) {
       return res
@@ -27,6 +27,26 @@ export const authFoodPartner = async (req, res, next) => {
 
     // 4. Attach to request
     req.foodPartner = foodPartner;
+    next();
+  } catch (error) {
+    return res
+      .status(401)
+      .json({ message: "Invalid or expired token", error: error.message });
+  }
+};
+
+export const authUser = async (req, res,next ) => {
+  try {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Please login first" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.id).select("-password");
+    req.user = user;
     next();
   } catch (error) {
     return res
