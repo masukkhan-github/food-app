@@ -1,69 +1,73 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/auth.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import RegisterHelper from "./RegisterHelper";
 
 const PartnerLogin = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
 
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    await axios
-      .post(
+    try {
+      const response = await axios.post(
         "http://localhost:3000/api/v1/auth/food-partner/login",
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        navigate("/create-food");
-      })
-      .catch((error) => {
-        console.error("error in partner login jsx :", error);
-      });
+        { email, password },
+        { withCredentials: true }
+      );
+
+      console.log(response.data);
+      navigate("/");
+    } catch (error) {
+      console.error("Error in partner login:", error);
+      if (error.response && error.response.data.message) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("Something went wrong. Try again.");
+      }
+    }
   };
+
   return (
     <div className="auth-shell">
       <div className="auth-hero">
         <div className="brand">Food Reel</div>
-        <h2 className="h-title">Partner sign in</h2>
-        <p className="h-sub">Sign in to manage your restaurant and orders.</p>
+        <h2 className="h-title">Partner Login</h2>
+        <p className="h-sub">Sign in to manage your restaurant account.</p>
       </div>
 
       <div className="card">
         <div className="form-title">Sign in</div>
 
-        <form
-          className="auth-form"
-          onSubmit={handleSubmit}
-          aria-label="Partner login form"
-        >
+        {/* ✅ Error message */}
+        {errorMessage && <p className="error-text" style={{color:"red"}}>{errorMessage}</p>}
+
+        <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-row">
-            <label htmlFor="pEmail">Email</label>
+            <label htmlFor="partnerEmail">Email</label>
             <input
-              id="pEmail"
+              id="partnerEmail"
               name="email"
               type="email"
-              placeholder="business@example.com"
+              placeholder="partner@example.com"
+              required
             />
           </div>
 
           <div className="form-row">
-            <label htmlFor="pPassword">Password</label>
+            <label htmlFor="partnerPassword">Password</label>
             <input
-              id="pPassword"
+              id="partnerPassword"
               name="password"
               type="password"
               placeholder="Your password"
+              required
             />
           </div>
 
@@ -74,10 +78,7 @@ const PartnerLogin = () => {
           </div>
         </form>
 
-        <div className="helper">
-          Register as: <Link to="/user/register">Normal user</Link> ·{" "}
-          <Link to="/food-partner/register">Food partner</Link>
-        </div>
+        <RegisterHelper />
       </div>
     </div>
   );

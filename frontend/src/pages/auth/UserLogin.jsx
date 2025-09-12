@@ -1,34 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import RegisterHelper from "./RegisterHelper";
 
 const UserLogin = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(""); // state for errors
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // clear old error
+
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    await axios
-      .post(
+    try {
+      const response = await axios.post(
         "http://localhost:3000/api/v1/auth/user/login",
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("error in user login jsx :", error);
-      });
+        { email, password },
+        { withCredentials: true }
+      );
+
+      console.log(response.data);
+      navigate("/");
+    } catch (error) {
+      console.error("Error in user login:", error);
+      if (error.response && error.response.data.message) {
+        setErrorMessage(error.response.data.message); // backend message
+      } else {
+        setErrorMessage("Something went wrong. Try again.");
+      }
+    }
   };
 
   return (
@@ -44,11 +47,10 @@ const UserLogin = () => {
       <div className="card">
         <div className="form-title">Sign in</div>
 
-        <form
-          className="auth-form"
-          onSubmit={handleSubmit}
-          aria-label="User login form"
-        >
+        {/* ✅ Show error if exists */}
+        {errorMessage && <p className="error-text" style={{color:"red"}}>{errorMessage}</p>}
+
+        <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <label htmlFor="loginEmail">Email</label>
             <input
@@ -56,6 +58,7 @@ const UserLogin = () => {
               name="email"
               type="email"
               placeholder="you@example.com"
+              required
             />
           </div>
 
@@ -66,6 +69,7 @@ const UserLogin = () => {
               name="password"
               type="password"
               placeholder="Your password"
+              required
             />
           </div>
 
@@ -76,10 +80,7 @@ const UserLogin = () => {
           </div>
         </form>
 
-        <div className="helper">
-          Register as: <Link to="/user/register">Normal user</Link> ·{" "}
-          <Link to="/food-partner/register">Food partner</Link>
-        </div>
+        <RegisterHelper />
       </div>
     </div>
   );

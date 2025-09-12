@@ -3,6 +3,8 @@ import "../../styles/auth.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import SignIn from "./SignIn";
+
 const PartnerRegister = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -57,6 +59,7 @@ const PartnerRegister = () => {
               name="name"
               type="text"
               placeholder="Restaurant or business name"
+              required
             />
           </div>
 
@@ -67,6 +70,7 @@ const PartnerRegister = () => {
               name="email"
               type="email"
               placeholder="business@example.com"
+              required
             />
           </div>
 
@@ -77,6 +81,7 @@ const PartnerRegister = () => {
               name="password"
               type="password"
               placeholder="Choose a secure password"
+              required
             />
           </div>
 
@@ -87,9 +92,7 @@ const PartnerRegister = () => {
           </div>
         </form>
 
-        <div className="helper">
-          Already partnered? <a href="/food-partner/login">Sign in</a>
-        </div>
+        <SignIn type="user" />
       </div>
     </div>
   );

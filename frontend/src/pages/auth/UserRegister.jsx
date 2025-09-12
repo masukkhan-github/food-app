@@ -3,6 +3,8 @@ import "../../styles/auth.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import SignIn from "./SignIn";
+
 const UserRegister = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -57,6 +59,7 @@ const UserRegister = () => {
               name="name"
               type="text"
               placeholder="Your full name"
+              required
             />
           </div>
 
@@ -67,6 +70,7 @@ const UserRegister = () => {
               name="email"
               type="email"
               placeholder="you@example.com"
+              required
             />
           </div>
 
@@ -77,6 +81,7 @@ const UserRegister = () => {
               name="password"
               type="password"
               placeholder="Create a password"
+              required
             />
           </div>
 
@@ -87,9 +92,7 @@ const UserRegister = () => {
           </div>
         </form>
 
-        <div className="helper">
-          Already have an account? <a href="/user/login">Sign in</a>
-        </div>
+       <SignIn type="user" />
       </div>
     </div>
   );
