@@ -6,6 +6,21 @@
   --card: 250, 250, 250;
   --radius: 12px;
   --shadow: 0 6px 18px rgba(2,6,23,0.08);
+  /* spacing tokens used by profile.css */
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* profile color tokens */
+  --color-surface: 255,255,255;
+  --color-surface-alt: 250,250,250;
+  --color-border: 226,232,240;
+  --color-text: 17,24,39;
+  --color-text-secondary: 100,116,139;
+  --radius-md: 12px;
+  --shadow-sm: 0 6px 18px rgba(2,6,23,0.06);
 }
 
 @media (prefers-color-scheme: dark){
@@ -16,5 +31,11 @@
     --primary: 99, 102, 241;
     --card: 20, 23, 32;
     --shadow: 0 8px 24px rgba(0,0,0,0.6);
+    --color-surface: 15,23,36;
+    --color-surface-alt: 11,18,32;
+    --color-border: 31,41,55;
+    --color-text: 241,245,249;
+    --color-text-secondary: 148,163,184;
+    --shadow-sm: 0 8px 24px rgba(0,0,0,0.6);
   }
 }
