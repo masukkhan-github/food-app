@@ -1,10 +1,30 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import '../../styles/auth.css'
+import React from "react";
+import { Link } from "react-router-dom";
+import "../../styles/auth.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const PartnerLogin = ()=>{
-  const handleSubmit = (e) => e.preventDefault()
+const PartnerLogin = () => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    const res = await axios.post(
+      "http://localhost:3000/api/v1/auth/food-partner/login",
+      {
+        email,
+        password,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+
+    navigate("/create-food");
+  };
   return (
     <div className="auth-shell">
       <div className="auth-hero">
@@ -16,28 +36,45 @@ const PartnerLogin = ()=>{
       <div className="card">
         <div className="form-title">Sign in</div>
 
-        <form className="auth-form" onSubmit={handleSubmit} aria-label="Partner login form">
+        <form
+          className="auth-form"
+          onSubmit={handleSubmit}
+          aria-label="Partner login form"
+        >
           <div className="form-row">
             <label htmlFor="pEmail">Email</label>
-            <input id="pEmail" name="email" type="email" placeholder="business@example.com" />
+            <input
+              id="pEmail"
+              name="email"
+              type="email"
+              placeholder="business@example.com"
+            />
           </div>
 
           <div className="form-row">
             <label htmlFor="pPassword">Password</label>
-            <input id="pPassword" name="password" type="password" placeholder="Your password" />
+            <input
+              id="pPassword"
+              name="password"
+              type="password"
+              placeholder="Your password"
+            />
           </div>
 
-          
           <div className="actions">
-            <button type="submit" className="btn btn-primary">Sign in</button>
-        
+            <button type="submit" className="btn btn-primary">
+              Sign in
+            </button>
           </div>
         </form>
 
-        <div className="helper">Register as: <Link to="/user/register">Normal user</Link> · <Link to="/food-partner/register">Food partner</Link></div>
+        <div className="helper">
+          Register as: <Link to="/user/register">Normal user</Link> ·{" "}
+          <Link to="/food-partner/register">Food partner</Link>
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PartnerLogin
+export default PartnerLogin;

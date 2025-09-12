@@ -6,6 +6,7 @@ import UserLogin from '../pages/auth/UserLogin.jsx'
 import PartnerRegister from '../pages/auth/PartnerRegister.jsx'
 import PartnerLogin from '../pages/auth/PartnerLogin.jsx'
 import Home from '../pages/auth/general/Home.jsx';
+import CreateFood from '../pages/auth/food-item/CreateFood.jsx';
 
 const AuthRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AuthRoutes = () => {
             <Route path="/food-partner/register" element={<PartnerRegister/>}/>
             <Route path="/food-partner/login" element={<PartnerLogin/>}/>
             <Route path="/" element={<Home/>}/>
+            <Route path="/create-food" element={<CreateFood/>}/>
         </Routes>
     </Router>
   )

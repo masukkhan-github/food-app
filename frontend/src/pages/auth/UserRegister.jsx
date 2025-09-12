@@ -11,14 +11,17 @@ const UserRegister = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    const res = axios.post("http://localhost:3000/api/v1/auth/user/register", {
-      name,
-      email,
-      password,
-    },{
-      withCredentials:true
-    }
-);
+    const res = await axios.post(
+      "http://localhost:3000/api/v1/auth/user/register",
+      {
+        name,
+        email,
+        password,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     navigate("/");
   };
 
