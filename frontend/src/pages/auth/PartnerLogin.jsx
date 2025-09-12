@@ -12,18 +12,24 @@ const PartnerLogin = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    const res = await axios.post(
-      "http://localhost:3000/api/v1/auth/food-partner/login",
-      {
-        email,
-        password,
-      },
-      {
-        withCredentials: true,
-      }
-    );
-
-    navigate("/create-food");
+    await axios
+      .post(
+        "http://localhost:3000/api/v1/auth/food-partner/login",
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        navigate("/create-food");
+      })
+      .catch((error) => {
+        console.error("error in partner login jsx :", error);
+      });
   };
   return (
     <div className="auth-shell">

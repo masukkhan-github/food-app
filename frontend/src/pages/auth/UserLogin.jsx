@@ -11,18 +11,24 @@ const UserLogin = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    const res = await axios.post(
-      "http://localhost:3000/api/v1/auth/user/login",
-      {
-        email,
-        password,
-      },
-      {
-        withCredentials: true,
-      }
-    );
-
-    navigate("/");
+    await axios
+      .post(
+        "http://localhost:3000/api/v1/auth/user/login",
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("error in user login jsx :", error);
+      });
   };
 
   return (
