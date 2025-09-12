@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/auth.css'
+import '../../styles/auth.css'
 
 const PartnerRegister = ()=>{
   const handleSubmit = (e) => e.preventDefault()

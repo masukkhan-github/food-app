@@ -1,37 +1,36 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../styles/auth.css'
+import '../../styles/auth.css'
 
-const UserLogin = ()=>{
+const PartnerLogin = ()=>{
   const handleSubmit = (e) => e.preventDefault()
 
   return (
     <div className="auth-shell">
       <div className="auth-hero">
         <div className="brand">Food Reel</div>
-        <h2 className="h-title">Welcome back.</h2>
-        <p className="h-sub">Sign in to continue ordering delicious food near you.</p>
+        <h2 className="h-title">Partner sign in</h2>
+        <p className="h-sub">Sign in to manage your restaurant and orders.</p>
       </div>
 
       <div className="card">
         <div className="form-title">Sign in</div>
 
-        <form className="auth-form" onSubmit={handleSubmit} aria-label="User login form">
+        <form className="auth-form" onSubmit={handleSubmit} aria-label="Partner login form">
           <div className="form-row">
-            <label htmlFor="loginEmail">Email</label>
-            <input id="loginEmail" name="email" type="email" placeholder="you@example.com" />
+            <label htmlFor="pEmail">Email</label>
+            <input id="pEmail" name="email" type="email" placeholder="business@example.com" />
           </div>
 
           <div className="form-row">
-            <label htmlFor="loginPassword">Password</label>
-            <input id="loginPassword" name="password" type="password" placeholder="Your password" />
+            <label htmlFor="pPassword">Password</label>
+            <input id="pPassword" name="password" type="password" placeholder="Your password" />
           </div>
 
-      
-
+          
           <div className="actions">
             <button type="submit" className="btn btn-primary">Sign in</button>
-          
+        
           </div>
         </form>
 
@@ -41,4 +40,4 @@ const UserLogin = ()=>{
   )
 }
 
-export default UserLogin
+export default PartnerLogin

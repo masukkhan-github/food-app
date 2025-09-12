@@ -1,19 +1,25 @@
 import React from "react";
-import "../styles/auth.css";
-import axios from 'axios';
+import "../../styles/auth.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const UserRegister = () => {
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    axios.post("http://localhost:3000/api/v1/auth/user/register",{
+    const res = axios.post("http://localhost:3000/api/v1/auth/user/register", {
       name,
       email,
-      password
-    })
+      password,
+    },{
+      withCredentials:true
+    }
+);
+    navigate("/");
   };
 
   return (
