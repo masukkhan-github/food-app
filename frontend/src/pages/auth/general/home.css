@@ -1,17 +1,17 @@
 @import '../../../styles/vars.css';
 
 /* Full-screen reels container that ignores body padding and margins */
-.reels-root{position:fixed;inset:0;margin:0;padding:0;z-index:0;background:rgba(var(--bg),1);overflow:hidden}
-.reels-container{position:relative;height:100vh;width:100vw;overflow-y:auto;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch}
+.reels-root{position:fixed;inset:0;margin:0;padding:0;z-index:0;background:rgba(var(--bg),1);overflow:hidden; --bottom-nav-height:64px}
+.reels-container{position:relative;height:100vh;width:100vw;overflow-y:auto;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch; padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom,28px));}
 
 .reel-item{position:relative;height:100vh;width:100vw;scroll-snap-align:start;display:flex;align-items:center;justify-content:center;background:black}
 .reel-video{position:absolute;left:0;top:0;height:100%;width:100%;object-fit:cover}
 
-.reel-overlay{position:absolute;left:0;right:0;bottom:env(safe-area-inset-bottom,28px);display:flex;flex-direction:column;gap:12px;padding:16px 20px;pointer-events:none;align-items:flex-start;max-width:100%}
+.reel-overlay{position:absolute;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,28px) + var(--bottom-nav-height) + 8px);display:flex;flex-direction:column;gap:12px;padding:16px 20px;pointer-events:none;align-items:flex-start;max-width:100%;z-index:40}
 
 .reel-desc{color:rgba(var(--text),1);font-weight:600;font-size:15px;max-width:86%;line-clamp:2;-webkit-line-clamp:2;-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden;text-overflow:ellipsis;pointer-events:auto;text-shadow:0 6px 18px rgba(0,0,0,0.6)}
 
-.reel-actions{display:flex;gap:12px;align-items:center;pointer-events:auto}
+.reel-actions{margin-bottom: 50px;display:flex;gap:12px;align-items:center;pointer-events:auto}
 .visit-btn{background:linear-gradient(90deg, rgba(var(--primary),1), rgba(var(--primary),0.85));color:white;padding:10px 14px;border-radius:12px;border:none;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(2,6,23,0.18);pointer-events:auto;transition:transform 160ms ease,box-shadow 160ms ease}
 .visit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(2,6,23,0.22)}
 
@@ -87,3 +87,56 @@
 
 	.loading{height:auto;min-height:120px;padding:var(--space-6)}
 } */
+
+/* Right-side vertical actions (like, save, comment) */
+.reel-side-actions{
+	position:absolute;
+	right:12px;
+	bottom:calc(var(--bottom-nav-height) + 110px);
+	display:flex;
+	flex-direction:column;
+	gap:18px;
+	align-items:center;
+	pointer-events:auto;
+	z-index:50;
+}
+.action-btn{background:transparent;border:none;color:rgba(var(--text),1);display:flex;flex-direction:column;gap:6px;align-items:center;cursor:pointer}
+.action-btn svg{opacity:0.95}
+.action-count{font-size:0.95rem;color:rgba(var(--text),0.95)}
+
+/* Slightly larger side action icons (like / save / comment) */
+.reel-side-actions .action-btn svg{
+	width:36px;
+	height:36px;
+}
+
+/* Bottom navigation (mobile-style) */
+.bottom-nav{
+	position:fixed;
+	left:0;
+	right:0;
+	bottom:0;
+	height:64px;
+	background: rgb(var(--color-surface));
+	display:flex;
+	align-items:center;
+	justify-content:space-around;
+	border-top:1px solid rgb(var(--color-border));
+	box-shadow: var(--shadow-sm);
+	z-index:80;
+	padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgb(var(--color-text));text-decoration:none;font-size:0.78rem;padding:6px 4px}
+.bottom-nav svg{opacity:0.95; color: rgb(var(--color-text));}
+.bottom-nav span{font-size:0.72rem;margin-top:4px}
+.bottom-nav a.active{color: rgb(var(--primary));}
+
+/* Saved page styles */
+.saved-page{padding:var(--space-6);min-height:100vh;background:rgba(var(--bg),1)}
+.saved-card{max-width:920px;margin:0 auto;background:transparent;padding:var(--space-4);color:rgb(var(--color-text))}
+.saved-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-4)}
+.saved-entry{background:rgba(var(--bg),0.02);padding:var(--space-3);border-radius:var(--radius-sm);overflow:hidden}
+.saved-meta{margin-top:8px}
+.saved-actions a{color:rgb(var(--primary));text-decoration:none}
+.saved-title{font-weight:600;color:rgb(var(--color-text));margin-bottom:6px}
+
