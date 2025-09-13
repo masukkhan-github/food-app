@@ -40,10 +40,8 @@ const CreateFood = () => {
 
       console.log(res.data, "✅ Food created, from CreateFood.jsx");
 
-      // small delay to show loading, then navigate
-      setTimeout(() => {
-        navigate("/home");
-      }, 500);
+       navigate("/home")
+      
     } catch (err) {
       console.error(
         "❌ Error from CreateFood.jsx creating food item:",
