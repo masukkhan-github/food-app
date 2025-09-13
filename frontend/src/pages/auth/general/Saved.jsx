@@ -10,7 +10,7 @@ const Saved = ()=>{
       <div className="saved-card">
         <h2>Saved</h2>
         <p>No saved items yet.</p>
-        <p><Link to="/home">Go back home</Link></p>
+        
       </div>
     </main>
   )

@@ -155,6 +155,22 @@ const Home = () => {
       ? videos
       : [{ id: "empty", src: "", desc: "No videos available" }];
 
+async function likeVideo(item){
+  const response = await axios.post("http://localhost:3000/api/v1/food/like",{
+    foodId: item._id
+  },{
+    withCredentials: true
+  })
+
+  if(response.data.like){
+    console.log("video liked");
+    setVideos((prev) => prev.map((v)=> v.id === item._id ? {...v, likeCount: v.likeCount + 1} : v) )
+  }else{
+    setVideos((prev) => prev.map((v)=> v.id === item._id ? {...v, likeCount: Math.max(0, v.likeCount - 1)} : v) )
+  }
+}
+
+
   return (
     <div className="reels-root">
       <div className="reels-container" ref={containerRef}>
