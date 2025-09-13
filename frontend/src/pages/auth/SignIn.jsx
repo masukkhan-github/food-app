@@ -6,11 +6,11 @@ const SignIn = ({ type }) => {
     <div className="helper">
       {type === "user" ? (
         <>
-        Already have an account?<Link to="/">Sign in</Link>
+        Already have an account?<Link to="/">User Sign in</Link>
         </>
       ) : (
         <>
-          Already partnered? <Link to="/food-partner/login">Sign in</Link>
+          Already partnered? <Link to="/food-partner/login">Partner Sign in</Link>
         </>
       )}
     </div>
