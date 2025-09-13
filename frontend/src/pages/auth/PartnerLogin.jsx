@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth.css";
 import axios from "axios";
 import RegisterHelper from "./RegisterHelper";
 
-const PartnerLogin = () => {
+const UserLogin = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [foods, setFoods] = useState([]);
 
+  // ✅ axios instance with credentials
+  const API = axios.create({
+    baseURL: "https://food-app-8vnw.onrender.com/api/v1",
+    withCredentials: true, // important for cookies
+  });
+
+  // handle login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
@@ -16,16 +24,19 @@ const PartnerLogin = () => {
     const password = e.target.password.value;
 
     try {
-      const response = await axios.post(
-        "https://food-app-8vnw.onrender.com/api/v1/auth/food-partner/login",
-        { email, password },
-        { withCredentials: true }
-      );
+      const response = await API.post("/auth/user/login", { email, password });
 
-      console.log(response.data);
-      navigate("/create-food");
+      console.log("Login response:", response.data);
+
+      // ✅ no localStorage save (cookie is handled automatically)
+
+      // fetch food after login
+      fetchFood();
+
+      // redirect to home
+      navigate("/home");
     } catch (error) {
-      console.error("Error in partner login:", error);
+      console.error("Error in user login:", error);
       if (error.response && error.response.data.message) {
         setErrorMessage(error.response.data.message);
       } else {
@@ -34,36 +45,52 @@ const PartnerLogin = () => {
     }
   };
 
+  // fetch food items
+  const fetchFood = async () => {
+    try {
+      const res = await API.get("/food");
+      console.log("Food data:", res.data);
+      setFoods(res.data.foodItem || []);
+    } catch (err) {
+      console.error("Error fetching food:", err.response?.data || err.message);
+    }
+  };
+
   return (
     <div className="auth-shell">
       <div className="auth-hero">
         <div className="brand">Food Reel</div>
-        <h2 className="h-title">Partner Login</h2>
-        <p className="h-sub">Sign in to manage your restaurant account.</p>
+        <h2 className="h-title">Welcome back.</h2>
+        <p className="h-sub">
+          Sign in to continue ordering delicious food near you.
+        </p>
       </div>
 
       <div className="card">
         <div className="form-title">Sign in</div>
 
-        {/* ✅ Error message */}
-        {errorMessage && <p className="error-text" style={{color:"red"}}>{errorMessage}</p>}
+        {errorMessage && (
+          <p className="error-text" style={{ color: "red" }}>
+            {errorMessage}
+          </p>
+        )}
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-row">
-            <label htmlFor="partnerEmail">Email</label>
+            <label htmlFor="loginEmail">Email</label>
             <input
-              id="partnerEmail"
+              id="loginEmail"
               name="email"
               type="email"
-              placeholder="partner@example.com"
+              placeholder="you@example.com"
               required
             />
           </div>
 
           <div className="form-row">
-            <label htmlFor="partnerPassword">Password</label>
+            <label htmlFor="loginPassword">Password</label>
             <input
-              id="partnerPassword"
+              id="loginPassword"
               name="password"
               type="password"
               placeholder="Your password"
@@ -79,9 +106,23 @@ const PartnerLogin = () => {
         </form>
 
         <RegisterHelper />
+
+        {/* ✅ Show food after login */}
+        {foods.length > 0 && (
+          <div className="food-list">
+            <h3>Available Food</h3>
+            <ul>
+              {foods.map((item) => (
+                <li key={item._id}>
+                  {item.name} - {item.description}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default PartnerLogin;
+export default UserLogin;

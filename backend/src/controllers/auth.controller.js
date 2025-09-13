@@ -33,7 +33,12 @@ export const registerUser = async (req, res) => {
       }
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,           // true because your frontend/backend are on https (Render)
+  sameSite: "None"        // must be "None" for cross-origin cookies
+});
+
 
     res.status(201).json({
       message: "user created successfully",
@@ -74,7 +79,11 @@ export const loginUser = async (req, res) => {
       }
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,           // true because your frontend/backend are on https (Render)
+  sameSite: "None"        // must be "None" for cross-origin cookies
+});
 
     res.status(200).json({
       message: "User logged in successfully",
@@ -126,7 +135,12 @@ export const registerFoodPartner = async (req, res) => {
       }
     );
 
-    res.cookie("token", token);
+   res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,           // true because your frontend/backend are on https (Render)
+  sameSite: "None"        // must be "None" for cross-origin cookies
+});
+
 
     res.status(201).json({
       message: "Food-partner created successfully",
@@ -169,7 +183,12 @@ export const loginFoodPartner = async (req, res) => {
       }
     );
 
-    res.cookie("token", token);
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,           // true because your frontend/backend are on https (Render)
+  sameSite: "None"        // must be "None" for cross-origin cookies
+});
+
 
     res.status(200).json({
       message: "Food-Partner logged in successfully",
