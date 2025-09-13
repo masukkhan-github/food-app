@@ -6,31 +6,64 @@ import RegisterHelper from "./RegisterHelper";
 
 const UserLogin = () => {
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState(""); // state for errors
+  const [errorMessage, setErrorMessage] = useState("");
+  const [foods, setFoods] = useState([]); // ✅ state for fetched food
 
+  // create axios instance
+  const API = axios.create({
+    baseURL: "https://food-app-8vnw.onrender.com/api/v1",
+  });
+
+  // attach token before each request
+  API.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  });
+
+  // handle login
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // clear old error
+    setErrorMessage("");
 
     const email = e.target.email.value;
     const password = e.target.password.value;
 
     try {
-      const response = await axios.post(
-        "https://food-app-8vnw.onrender.com/api/v1/auth/user/login",
-        { email, password },
-        { withCredentials: true }
-      );
+      const response = await API.post("/auth/user/login", { email, password });
 
-      console.log(response.data);
+      console.log("Login response:", response.data);
+
+      // ✅ save token
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      }
+
+      // fetch food after login
+      fetchFood();
+
+      // go to home if you want
       navigate("/home");
     } catch (error) {
       console.error("Error in user login:", error);
       if (error.response && error.response.data.message) {
-        setErrorMessage(error.response.data.message); // backend message
+        setErrorMessage(error.response.data.message);
       } else {
         setErrorMessage("Something went wrong. Try again.");
       }
+    }
+  };
+
+  // fetch food items
+  const fetchFood = async () => {
+    try {
+      const res = await API.get("/food");
+      console.log("Food data:", res.data);
+      setFoods(res.data.foodItem || []);
+    } catch (err) {
+      console.error("Error fetching food:", err.response?.data || err.message);
     }
   };
 
@@ -47,8 +80,11 @@ const UserLogin = () => {
       <div className="card">
         <div className="form-title">Sign in</div>
 
-        {/* ✅ Show error if exists */}
-        {errorMessage && <p className="error-text" style={{color:"red"}}>{errorMessage}</p>}
+        {errorMessage && (
+          <p className="error-text" style={{ color: "red" }}>
+            {errorMessage}
+          </p>
+        )}
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-row">
@@ -81,6 +117,20 @@ const UserLogin = () => {
         </form>
 
         <RegisterHelper />
+
+        {/* ✅ Show food after login */}
+        {foods.length > 0 && (
+          <div className="food-list">
+            <h3>Available Food</h3>
+            <ul>
+              {foods.map((item) => (
+                <li key={item._id}>
+                  {item.name} - {item.description}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
