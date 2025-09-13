@@ -11,7 +11,7 @@ const app = express();
 dotenv.config();
 
 app.use(cors({
-  origin:["https://food-app-frontend-6tzq.onrender.com","http://localhost:5174"],
+  origin:["https://food-app-frontend-6tzq.onrender.com","http://localhost:5173"],
   credentials:true,
 }));
 
