@@ -255,7 +255,7 @@ const Home = () => {
           <span>create</span>
   </NavLink>
 
-  <NavLink to="/saved" className="nav-item" aria-label="saved">
+  {/* <NavLink to="/saved" className="nav-item" aria-label="saved">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 2h12a1 1 0 0 1 1 1v18l-7-3-7 3V3a1 1 0 0 1 1-1z" stroke="currentColor" strokeWidth="1.2"/></svg>
           <span>saved</span>
   </NavLink>
@@ -263,7 +263,7 @@ const Home = () => {
   <NavLink to="/profile" className="nav-item" aria-label="profile">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 20a8 8 0 0 1 16 0" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <span>profile</span>
-  </NavLink>
+  </NavLink> */}
       </nav>
     </div>
   );
