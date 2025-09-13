@@ -5,7 +5,7 @@ import "../../styles/auth.css";
 const RegisterHelper = () => {
   return (
     <div className="helper">
-      Register as: <Link to="/user/register">Normal user</Link> ·{" "}
+      Register as: &nbsp;<Link to="/user/register">Normal user</Link> ·{" "}
       <Link to="/food-partner/register">Food partner</Link>
     </div>
   );

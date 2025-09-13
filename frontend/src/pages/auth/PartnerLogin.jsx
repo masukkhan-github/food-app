@@ -2,20 +2,17 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth.css";
 import axios from "axios";
-import RegisterHelper from "./RegisterHelper";
 
-const UserLogin = () => {
+const PartnerLogin = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
-  const [foods, setFoods] = useState([]);
 
   // ✅ axios instance with credentials
   const API = axios.create({
     baseURL: "https://food-app-8vnw.onrender.com/api/v1",
-    withCredentials: true, // important for cookies
+    withCredentials: true, // cookies handled automatically
   });
 
-  // handle login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
@@ -24,19 +21,17 @@ const UserLogin = () => {
     const password = e.target.password.value;
 
     try {
-      const response = await API.post("/auth/user/login", { email, password });
+      const response = await API.post("/auth/food-partner/login", {
+        email,
+        password,
+      });
 
-      console.log("Login response:", response.data);
+      console.log("Partner login response:", response.data);
 
-      // ✅ no localStorage save (cookie is handled automatically)
-
-      // fetch food after login
-      fetchFood();
-
-      // redirect to home
-      navigate("/home");
+      // ✅ redirect after login
+      navigate("/create-food");
     } catch (error) {
-      console.error("Error in user login:", error);
+      console.error("Error in partner login:", error);
       if (error.response && error.response.data.message) {
         setErrorMessage(error.response.data.message);
       } else {
@@ -45,25 +40,12 @@ const UserLogin = () => {
     }
   };
 
-  // fetch food items
-  const fetchFood = async () => {
-    try {
-      const res = await API.get("/food");
-      console.log("Food data:", res.data);
-      setFoods(res.data.foodItem || []);
-    } catch (err) {
-      console.error("Error fetching food:", err.response?.data || err.message);
-    }
-  };
-
   return (
     <div className="auth-shell">
       <div className="auth-hero">
         <div className="brand">Food Reel</div>
-        <h2 className="h-title">Welcome back.</h2>
-        <p className="h-sub">
-          Sign in to continue ordering delicious food near you.
-        </p>
+        <h2 className="h-title">Partner sign in</h2>
+        <p className="h-sub">Sign in to manage your restaurant and orders.</p>
       </div>
 
       <div className="card">
@@ -77,20 +59,20 @@ const UserLogin = () => {
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-row">
-            <label htmlFor="loginEmail">Email</label>
+            <label htmlFor="pEmail">Email</label>
             <input
-              id="loginEmail"
+              id="pEmail"
               name="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="business@example.com"
               required
             />
           </div>
 
           <div className="form-row">
-            <label htmlFor="loginPassword">Password</label>
+            <label htmlFor="pPassword">Password</label>
             <input
-              id="loginPassword"
+              id="pPassword"
               name="password"
               type="password"
               placeholder="Your password"
@@ -105,24 +87,13 @@ const UserLogin = () => {
           </div>
         </form>
 
-        <RegisterHelper />
-
-        {/* ✅ Show food after login */}
-        {foods.length > 0 && (
-          <div className="food-list">
-            <h3>Available Food</h3>
-            <ul>
-              {foods.map((item) => (
-                <li key={item._id}>
-                  {item.name} - {item.description}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className="helper">
+          Register as: &nbsp;<Link to="/user/register">Normal user</Link> ·{" "}
+          <Link to="/food-partner/register">Food partner</Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default UserLogin;
+export default PartnerLogin;
