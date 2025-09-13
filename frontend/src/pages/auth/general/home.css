@@ -20,3 +20,70 @@
 @media (prefers-reduced-motion: reduce){.reels-container{scroll-behavior:auto}.visit-btn{transition:none}}
 
 @media (max-width:600px){.reel-desc{font-size:14px;max-width:92%}.reel-overlay{bottom:18px;padding:12px}.visit-btn{padding:10px 12px}}
+
+/* Desktop: don't use full-screen reel layout — constrain content like profile page */
+/* @media (min-width: 450px) {
+	.reels-root{
+		position:relative;
+		inset:auto;
+		margin: 0 auto;
+		padding: var(--space-6);
+		z-index:0;
+		max-width: auto;
+		height: auto;
+		background: transparent;
+		overflow: visible;
+	}
+
+	.reels-container{
+		position:relative;
+		height: auto;
+		width:100%;
+		overflow:visible;
+		scroll-snap-type: none;
+	}
+
+	.reel-item{
+		position:relative;
+		height: auto;
+		width:100%;
+		scroll-snap-align: none;
+		display:block;
+		align-items:stretch;
+		justify-content:stretch;
+		background: transparent;
+		margin-bottom: var(--space-6);
+	}
+
+	.reel-video{
+		position:static;
+		left:auto;
+		top:auto;
+		height:auto;
+		width:100%;
+		object-fit:cover;
+		border-radius: var(--radius-md);
+		border: 1px solid rgba(var(--color-border),1);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.reel-overlay{
+		position:static;
+		left:auto;
+		right:auto;
+		bottom:auto;
+		padding: var(--space-6);
+		pointer-events:auto;
+		align-items:flex-start;
+		max-width:100%;
+		margin-top: calc(-1 * var(--space-8));
+	}
+
+	.reel-desc{
+		max-width:100%;
+		font-size:1rem;
+		text-shadow:none;
+	}
+
+	.loading{height:auto;min-height:120px;padding:var(--space-6)}
+} */

@@ -23,7 +23,7 @@ const PartnerLogin = () => {
       );
 
       console.log(response.data);
-      navigate("/");
+      navigate("/create-food");
     } catch (error) {
       console.error("Error in partner login:", error);
       if (error.response && error.response.data.message) {

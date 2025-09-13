@@ -27,7 +27,7 @@ const UserRegister = () => {
       )
       .then((response) => {
         console.log(response.data);
-        navigate("/");
+        navigate("/home");
       })
       .catch((error) => {
         console.error("error in user register jsx :", error);

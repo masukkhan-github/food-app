@@ -92,7 +92,7 @@ const PartnerRegister = () => {
           </div>
         </form>
 
-        <SignIn type="user" />
+        <SignIn type="partner" />
       </div>
     </div>
   );

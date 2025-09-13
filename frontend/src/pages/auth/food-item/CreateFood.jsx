@@ -42,7 +42,7 @@ const CreateFood = () => {
 
       // small delay to show loading, then navigate
       setTimeout(() => {
-        navigate("/");
+        navigate("/home");
       }, 500);
     } catch (err) {
       console.error(

@@ -31,7 +31,7 @@
 .cf-right { display: grid; gap: var(--space-4); }
 
 .cf-row { display: grid; gap: var(--space-2); width: 100%; }
-.cf-row label { font-size: 0.95rem; color: rgb(var(--muted)); }
+.cf-row label { font-size: 0.95rem; ; }
 .cf-row input[type="text"], .cf-row input[type="url"], .cf-row textarea {
   padding: 10px 12px;
   border-radius: 8px;
@@ -65,7 +65,7 @@
 /* Custom file input */
 .cf-file-input-wrapper { display:flex; gap: var(--space-3); align-items:center; width:100%; flex-wrap:wrap; }
 .cf-file-input { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.cf-file-btn { display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius:8px; background: rgba(var(--primary),1); color: #fff; cursor:pointer; font-size:0.95rem; flex: none; }
+.cf-file-btn { display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius:8px; background: rgb(var(--primary)); color: white;  cursor:pointer; font-size:0.95rem; flex: none; }
 .cf-file-btn svg { opacity: 0.95; }
 .cf-file-name { font-size:0.9rem; color: rgb(var(--muted)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0; min-width: 0; }
 
