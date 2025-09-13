@@ -1,5 +1,5 @@
 import express from "express";
-import { getFood, listFood } from "../controllers/food.controller.js";
+import { getFood, likeFood, listFood, saveFood } from "../controllers/food.controller.js";
 import { authFoodPartner, authUser } from "../middlewares/auth.middleware.js";
 import multer from "multer";
 
@@ -13,4 +13,9 @@ export const foodRouter = express.Router();
 foodRouter.post("/", authFoodPartner, upload.single("video"), listFood);
 
 //protected route for getting food items
-foodRouter.get("/", authUser, getFood)
+foodRouter.get("/", authUser, getFood);
+
+//protected route for like foods
+foodRouter.post("/like", authUser, likeFood);
+
+foodRouter.post("/save", authUser, saveFood)
