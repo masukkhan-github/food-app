@@ -18,7 +18,7 @@ const Profile = () => {
             setLoading(true)
             setError(null)
             try {
-                const res = await axios.get(`http://localhost:3000/api/v1/food-partner/${id}`, { withCredentials: true, signal: controller.signal })
+                const res = await axios.get(`https://food-app-8vnw.onrender.com/api/v1/food-partner/${id}`, { withCredentials: true, signal: controller.signal })
 
                 // Controller returns: { message, partner: { ...partnerFields, foodItems: [...] } }
                 const partner = res?.data?.partner ?? null

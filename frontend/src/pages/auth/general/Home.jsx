@@ -39,7 +39,7 @@ const Home = () => {
     const fetchVideos = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/v1/food",
+          "https://food-app-8vnw.onrender.com/api/v1/food",
           {
             withCredentials: true,
             signal: controller.signal,
@@ -62,7 +62,7 @@ const Home = () => {
     // set up periodic refresh to update like/save counts (approx realtime)
     const interval = setInterval(async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/v1/food', { withCredentials: true });
+        const res = await axios.get('https://food-app-8vnw.onrender.com/api/v1/food', { withCredentials: true });
         const mapped = mapPayload(res.data);
         // merge counts into existing videos state
         setVideos((prev) => {

@@ -15,7 +15,7 @@ const PartnerRegister = () => {
 
     await axios
       .post(
-        "http://localhost:3000/api/v1/auth/food-partner/register",
+        "https://food-app-8vnw.onrender.com/api/v1/auth/food-partner/register",
         {
           name,
           email,
